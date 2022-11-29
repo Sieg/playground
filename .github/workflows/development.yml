@@ -46,8 +46,9 @@ jobs:
         with:
           payload: |
             {
-              "text": "GitHub Action build result: ${{ job.status }}\n
-                  Something ${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "text": >
+                GitHub Action build result: ${{ job.status }}\n
+                Something ${{ github.event.pull_request.html_url || github.event.head_commit.url }}
               "blocks": [
                 {
                   "type": "section",
