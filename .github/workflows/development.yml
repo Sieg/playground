@@ -30,10 +30,21 @@ jobs:
     if: always() && (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
     steps:
       - uses: ravsamhq/notify-slack-action@v2
+        if: job.status == 'success'
         with:
-          status: ${{ job.status }}
+          status: 'success'
           notification_title: "${{ env.PACKAGE_NAME }} {workflow} has {status_message}"
           message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>"
           footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - uses: ravsamhq/notify-slack-action@v2
+        if: job.status == 'failure' || job.status == 'success'
+        with:
+          status: 'failure'
+          notification_title: "${{ env.PACKAGE_NAME }} {workflow} has {status_message}"
+          message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>"
+          footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
