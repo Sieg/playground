@@ -6,8 +6,7 @@ on:
     branches:
       - master
   pull_request:
-  schedule:
-    - cron:  '*/5 * * * *'
+
 env:
   MODULE_NAME: 'Playground'
 
