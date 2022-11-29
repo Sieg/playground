@@ -33,7 +33,9 @@ jobs:
         if: job.status == 'success'
         with:
           status: 'success'
-          message_format: "{emoji} *${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ env.MODULE_NAME }} {workflow}* {status_message} in <{repo_url}|{repo}>"
+          message_format: >
+            {emoji} ${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} 
+            *${{ env.MODULE_NAME }} {workflow}* {status_message} in <{repo_url}|{repo}>
           footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -42,7 +44,7 @@ jobs:
         if: job.status == 'failure' || job.status == 'success'
         with:
           status: 'failure'
-          message_format: "{emoji} *${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ env.MODULE_NAME }} {workflow}* {status_message} in <{repo_url}|{repo}>"
+          message_format: "{emoji} ${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} *${{ env.MODULE_NAME }} {workflow}* {status_message} in <{repo_url}|{repo}>"
           footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
