@@ -50,17 +50,10 @@ jobs:
                 "type": "header",
                 "text": {
                   "type": "plain_text",
-                  "text": "*${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ env.MODULE_NAME }} {workflow}*",
+                  "text": "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} <${{ github.repositoryUrl }}|${{ github.repository }}>",
                   "emoji": true
                 }
               },            
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "<https://example.com|View request>"
-                }
-              },
               {
                 "type": "section",
                 "text": {
