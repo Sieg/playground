@@ -33,7 +33,7 @@ jobs:
         if: job.status == 'success'
         with:
           status: 'success'
-          notification_title: "${{ env.PACKAGE_NAME }} {workflow} has {status_message}"
+          notification_title: "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ env.MODULE_NAME }} {workflow} has Passed"
           message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>"
           footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"
         env:
@@ -43,7 +43,7 @@ jobs:
         if: job.status == 'failure' || job.status == 'success'
         with:
           status: 'failure'
-          notification_title: "${{ env.PACKAGE_NAME }} {workflow} has {status_message}"
+          notification_title: "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ env.MODULE_NAME }} {workflow} has Failed"
           message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>"
           footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"
         env:
