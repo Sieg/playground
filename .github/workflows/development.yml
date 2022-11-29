@@ -13,16 +13,17 @@ env:
 
 jobs:
   first_job:
-    strategy:
-      matrix:
-        php:
-          - '8.0'
-          - '8.1'
     runs-on: ubuntu-latest
     steps:
       - name: Do something
         run: |
           echo "hello!"
+
+  second_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do fail
+        run: exit 1
 
   notify_slack:
     runs-on: ubuntu-latest
@@ -30,7 +31,6 @@ jobs:
     if: always() && (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
     steps:
       - uses: ravsamhq/notify-slack-action@v2
-        if: job.status == 'success'
         with:
           status: ${{ job.status == 'failure' && 'failure' || 'success' }}
           notification_title: >
