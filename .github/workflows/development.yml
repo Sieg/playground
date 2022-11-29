@@ -7,7 +7,7 @@ on:
       - master
   pull_request:
   schedule:
-    - cron:  '*/2 * * * *'
+    - cron:  '*/5 * * * *'
 env:
   MODULE_NAME: 'Playground'
 
@@ -33,8 +33,7 @@ jobs:
         if: job.status == 'success'
         with:
           status: 'success'
-          notification_title: "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ env.MODULE_NAME }} {workflow} has Passed"
-          message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>"
+          message_format: "{emoji} *${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ env.MODULE_NAME }} {workflow}* {status_message} in <{repo_url}|{repo}>"
           footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -43,8 +42,7 @@ jobs:
         if: job.status == 'failure' || job.status == 'success'
         with:
           status: 'failure'
-          notification_title: "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ env.MODULE_NAME }} {workflow} has Failed"
-          message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>"
+          message_format: "{emoji} *${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ env.MODULE_NAME }} {workflow}* {status_message} in <{repo_url}|{repo}>"
           footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
