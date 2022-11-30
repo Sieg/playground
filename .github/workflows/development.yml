@@ -11,17 +11,15 @@ env:
   MODULE_NAME: 'Playground'
 
 jobs:
-  first_job:
+  first:
     runs-on: ubuntu-latest
-    id: first
     steps:
       - name: Do something
         run: |
           echo "hello!"
 
-  second_job:
+  second:
     runs-on: ubuntu-latest
-    id: second
     steps:
       - name: Do fail
         run: exit 1
@@ -48,7 +46,7 @@ jobs:
                 "fields": [
                     {
                         "type": "mrkdwn",
-                        "text": "*Status:* ${{ (jobs.first.result=='success' && jobs.second.result=='success') && ':white_check_mark:' || ':x:' }}"
+                        "text": "*Status:* ${{ (jobs.first.result=='success' && jobs.second.result=='success') && ':heavy_check_mark:' || ':x:' }}"
                     },
                     {
                         "type": "mrkdwn",
@@ -64,7 +62,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "```\n* First job ${{ (jobs.first.result=='success') && ':white_check_mark:' || ':x:' }} \n* Second job ${{ (jobs.second.result=='success') && ':white_check_mark:' || ':x:' }}```"
+                  "text": "```\n* First job ${{ (jobs.first.result=='success') && ':heavy_check_mark:' || ':x:' }} \n* Second job ${{ (jobs.second.result=='success') && ':heavy_check_mark:' || ':x:' }}```"
                 }
               }
             ]}
