@@ -40,7 +40,9 @@ jobs:
               {"type": "section","fields": [
                 {
                   "type": "mrkdwn",
-                  "text": "*Status:* ${{ (needs.first.result=='success' && needs.second.result=='success') && ':heavy_check_mark:' || ':x:' }}"
+            "text": "
+            *Status:* ${{ (needs.first.result=='success' && needs.second.result=='success') && ':heavy_check_mark:' || ':x:' }}
+            "
                 },
                 {
                   "type": "mrkdwn",
@@ -52,8 +54,7 @@ jobs:
             \n* First job ${{ (needs.first.result=='success') && ':heavy_check_mark:' || ':x:' }} 
             \n* Second job ${{ (needs.second.result=='success') && ':heavy_check_mark:' || ':x:' }}
             "
-              }},
-              {"type": "divider"}
+              }}, {"type": "divider"}
             ]}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
