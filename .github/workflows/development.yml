@@ -13,6 +13,7 @@ env:
 jobs:
   first_job:
     runs-on: ubuntu-latest
+    id: first
     steps:
       - name: Do something
         run: |
@@ -20,6 +21,7 @@ jobs:
 
   second_job:
     runs-on: ubuntu-latest
+    id: second
     steps:
       - name: Do fail
         run: exit 1
@@ -37,14 +39,22 @@ jobs:
                 "type": "header",
                 "text": {
                   "type": "plain_text",
-                  "text": 
-                    "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} 
-                    ${{ github.workflow }} on ${{ github.repository }}",
+                  "text": "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ github.workflow }} on ${{ github.repository }}",
                   "emoji": true
                 }
               },    
               {
                 "type": "section",
+                "fields": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Status:* ${{ (jobs.first.result=='success' && jobs.second.result=='success') && ':white_check_mark:' || ':x:' }}"
+                    },
+                    {
+                        "type": "mrkdwn",
+                        "text": "Repository: <${{ github.server_url }}/${{ github.repository }}|${{ github.repository }}>"
+                    }
+                ]
                 "text": {
                   "type": "mrkdwn",
                   "text": "Repository: <${{ github.server_url }}/${{ github.repository }}|${{ github.repository }}>"
@@ -54,7 +64,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "```\n* List 1 \n* List 2```"
+                  "text": "```\n* First job ${{ (jobs.first.result=='success') && ':white_check_mark:' || ':x:' }} \n* Second job ${{ (jobs.second.result=='success') && ':white_check_mark:' || ':x:' }}```"
                 }
               }
             ]}
