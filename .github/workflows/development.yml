@@ -49,10 +49,17 @@ jobs:
                 "type": "header",
                 "text": {
                   "type": "plain_text",
-                  "text": "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} <${{ github.repositoryUrl }}|${{ github.repository }}>",
+                  "text": "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ github.workflow }} on ${{ github.repository }}",
                   "emoji": true
                 }
-              },            
+              },    
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "Repository: <${{ github.server_url }}/${{ github.repository }}|${{ github.repository }}>"
+                }
+              },
               {
                 "type": "section",
                 "text": {
