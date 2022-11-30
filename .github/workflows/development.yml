@@ -32,7 +32,7 @@ jobs:
       - name: Send custom JSON data to Slack workflow
         uses: slackapi/slack-github-action@v1.23.0
         with:
-          payload: >-
+          payload: >
             {"blocks": [
               {"type": "header","text": {"type": "plain_text", "emoji": true,
                 "text": "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ github.workflow }} workflow on ${{ github.repository }}",
@@ -48,7 +48,7 @@ jobs:
                 }
               ]},
               {"type": "section", "text": {"type": "mrkdwn", 
-                "text": "
+            "text": "
             \n* First job ${{ (needs.first.result=='success') && ':heavy_check_mark:' || ':x:' }} 
             \n* Second job ${{ (needs.second.result=='success') && ':heavy_check_mark:' || ':x:' }}
             "
