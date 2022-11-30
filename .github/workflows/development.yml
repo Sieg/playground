@@ -35,7 +35,7 @@ jobs:
           payload: >
             {"blocks": [
               {"type": "header","text": {"type": "plain_text", "emoji": true,
-                "text": "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ github.workflow }} workflow on ${{ github.repository }}",
+                "text": "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ github.workflow }} workflow on ${{ github.repository }}"
               }},    
               {"type": "section","fields": [
                 {
@@ -52,8 +52,7 @@ jobs:
             \n* First job ${{ (needs.first.result=='success') && ':heavy_check_mark:' || ':x:' }} 
             \n* Second job ${{ (needs.second.result=='success') && ':heavy_check_mark:' || ':x:' }}
             "
-                }
-              },
+              }},
               {"type": "divider"}
             ]}
         env:
