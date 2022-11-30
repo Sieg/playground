@@ -33,7 +33,10 @@ jobs:
         uses: slackapi/slack-github-action@v1.23.0
         with:
           payload: >
-            {"blocks": [
+            {"text": "
+            ${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ github.workflow }} workflow on ${{ github.repository }}
+            ${{ (needs.first.result=='success' && needs.second.result=='success') && 'Successful' || 'Failed' }}
+            ", "blocks": [
               {"type": "header","text": {"type": "plain_text", "emoji": true,
                 "text": "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ github.workflow }} workflow on ${{ github.repository }}"
               }},    
