@@ -59,7 +59,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "
+            "text": "
             \n* First job ${{ (needs.first.result=='success') && ':heavy_check_mark:' || ':x:' }} 
             \n* Second job ${{ (needs.second.result=='success') && ':heavy_check_mark:' || ':x:' }}
             "
