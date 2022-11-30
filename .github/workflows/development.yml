@@ -40,6 +40,10 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
+      - name: Calculate the builds state
+        run: |
+          echo ::set-env name=STATE::'something'
+
       - name: Send custom JSON data to Slack workflow
         uses: slackapi/slack-github-action@v1.23.0
         with:
@@ -49,8 +53,7 @@ jobs:
                 "type": "header",
                 "text": {
                   "type": "plain_text",
-                  "text": "${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} 
-                    ${{ github.workflow }} on ${{ github.repository }}",
+                  "text": "$STATE ${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Scheduled' }} ${{ github.workflow }} on ${{ github.repository }}",
                   "emoji": true
                 }
               },    
