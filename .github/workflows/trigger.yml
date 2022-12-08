@@ -1,0 +1,16 @@
+name: Trigger
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  call-workflow:
+    uses: ./.github/workflows/development.yml
+
+  main-finish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say cool
+        run: echo "cool"

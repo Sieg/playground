@@ -2,10 +2,7 @@ name: Development
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
-  pull_request:
+  workflow_call:
 
 jobs:
   first:
